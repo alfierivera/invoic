@@ -7,9 +7,15 @@ desktop.ini
 .project
 .settings
 .tmpoj
-fuel/app/logs/*/*/*
-fuel/app/cache/*/*
+invoic/app/logs/*/*/*
+invoic/app/cache/*/*
 nbproject/
 .idea
 .htaccess
+<<<<<<< .merge_file_SF2W9h
+<<<<<<< .merge_file_2beaqC
 
+=======
+>>>>>>> .merge_file_WF2mRD
+=======
+>>>>>>> .merge_file_C67a1e
