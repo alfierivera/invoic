@@ -1,15 +1,12 @@
 [submodule "fuel/core"]
-	path = fuel/core
+	path = invoic/core
 	url = git://github.com/fuel/core.git
 [submodule "fuel/packages/orm"]
-	path = fuel/packages/orm
+	path = invoic/packages/orm
 	url = git://github.com/fuel/orm.git
 [submodule "fuel/packages/auth"]
-	path = fuel/packages/auth
+	path = invoic/packages/auth
 	url = git://github.com/fuel/auth.git
 [submodule "fuel/packages/oil"]
-	path = fuel/packages/oil
+	path = invoic/packages/oil
 	url = git://github.com/fuel/oil.git
-[submodule "docs"]
-	path = docs
-	url = git://github.com/fuel/docs.git
