@@ -8,6 +8,7 @@ class Create_groups {
 	{
 		\DBUtil::create_table('groups', array(
 			'id' => array('constraint' => 11, 'type' => 'int', 'auto_increment' => true),
+			'parent_id' => array('constraint' => 11, 'type' => 'int'),
 			'name' => array('constraint' => 255, 'type' => 'varchar'),
 			'created_at' => array('constraint' => 11, 'type' => 'int'),
 			'updated_at' => array('constraint' => 11, 'type' => 'int'),
