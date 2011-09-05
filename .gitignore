@@ -7,7 +7,8 @@ desktop.ini
 .project
 .settings
 .tmpoj
-fuel/app/logs/*/*/*
-fuel/app/cache/*/*
+invoic/app/logs/*/*/*
+invoic/app/cache/*/*
 nbproject/
 .idea
+.htaccess
