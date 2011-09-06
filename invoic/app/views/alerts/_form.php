@@ -23,6 +23,13 @@
 <?php echo Form::select('type', Input::post('type', isset($alert) ? $alert->type : ''), $types); ?>
 </div>
 	</p>
+	
+	<p>
+		<?php echo Form::label('Event', 'event_id'); ?>
+		<div class='input'>
+<?php echo Form::select('event_id', Input::post('event_id', isset($alert) ? $alert->event_id : ''), $types['events']); ?>
+</div>
+	</p>
 
 	<div class="actions">
 		<?php echo Form::submit(array('class' => 'btn primary large')); ?>	</div>

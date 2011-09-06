@@ -18,9 +18,7 @@
 		<td><?php echo Date::factory($event->ends)->format("datepicker"); ?></td>
 		<td><?php echo $event->repeat; ?></td>
 		<td>
-			<?php echo Html::anchor('events/view/'.$event->id, 'View', array('class' => 'btn primary')); ?> |
-			<?php echo Html::anchor('events/edit/'.$event->id, 'Edit', array('class' => 'btn')); ?> |
-			<?php echo Html::anchor('events/delete/'.$event->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
+			<?php echo Html::anchor('events/view/'.$event->id, 'View', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('events/edit/'.$event->id, 'Edit', array('class' => 'btn')); ?>&nbsp;<?php echo Html::anchor('events/delete/'.$event->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
 	</tr>
 	<?php endforeach; ?></tbody></table>
 

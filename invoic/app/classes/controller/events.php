@@ -46,7 +46,7 @@ class Controller_Events extends Controller_Template {
 		{
 			$event = Model_Event::factory(array(
 				'name' => Input::post('name'),
-				'identifier' => Input::post('identifier'),
+				'identifier' => \Inflector::friendly_title(Input::post('name'), '-', true),
 				'starts' => \Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp,
 				'ends' => \Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp,
 				'repeat' => Input::post('repeat'),
@@ -79,7 +79,7 @@ class Controller_Events extends Controller_Template {
 		if (Input::method() == 'POST')
 		{
 			$event->name = Input::post('name');
-			$event->identifier = Input::post('identifier');
+			$event->identifier = \Inflector::friendly_title(Input::post('name'), '-', true);
 			$event->starts = Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp;
 			$event->ends = Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp;
 			$event->repeat = Input::post('repeat');

@@ -27,14 +27,14 @@
 	<p>
 		<?php echo Form::label('Reference', 'reference'); ?>
 		<div class='input'>
-<?php echo Form::select('repeat', Input::post('reference', isset($event) ? $event->reference : ''), $select['references']); ?>
+<?php echo Form::select('reference', Input::post('reference', isset($event) ? $event->reference : ''), $select['references']); ?>
 </div>
 	</p>
 	
 	<p>
 		<?php echo Form::label('Reference ID', 'ref_id'); ?>
 		<div class='input'>
-<?php echo Form::input('repeat', Input::post('ref_id', isset($event) ? $event->ref_id : '')); ?>
+<?php echo Form::input('ref_id', Input::post('ref_id', isset($event) ? $event->ref_id : '')); ?>
 </div>
 	</p>
 

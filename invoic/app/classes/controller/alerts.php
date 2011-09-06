@@ -57,7 +57,7 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$alert = Model_Alert::factory(array(
 				'name' => Input::post('name'),
-				'identifier' => Input::post('identifier'),
+				'identifier' => \Inflector::friendly_title(Input::post('name'), '-', true),
 				'event_id' => Input::post('event_id'),
 				'init' => \Date::create_from_string(Input::post('init'), 'datepicker')->timestamp,
 				'enabled' => Input::post('enabled'),
@@ -76,6 +76,12 @@ class Controller_Alerts extends Controller_Template {
 				Session::set_flash('notice', 'Could not save alert.');
 			}
 		}
+		$events = Model_Event::find('all');
+		foreach ($events as $event)
+		{
+			$evids[$event->id] = $event->name;
+		}		
+		static::$types['events'] = $evids;		
 		$this->template->set_global('types', static::$types, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/create');
@@ -89,7 +95,7 @@ class Controller_Alerts extends Controller_Template {
 		if (Input::method() == 'POST')
 		{
 			$alert->name = Input::post('name');
-			$alert->identifier = Input::post('identifier');
+			//$alert->identifier = Input::post('identifier');
 			$alert->event_id = Input::post('event_id');
 			$alert->init = Date::create_from_string(Input::post('init'),'datepicker')->timestamp;
 			$alert->enabled = Input::post('enabled');
@@ -111,6 +117,12 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$this->template->set_global('alert', $alert, false);
 		}
+		$events = Model_Event::find('all');
+		foreach ($events as $event)
+		{
+			$evids[$event->id] = $event->name;
+		}		
+		static::$types['events'] = $evids;	
 		$this->template->set_global('types', static::$types, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/edit');
