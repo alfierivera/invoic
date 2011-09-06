@@ -2,4 +2,4 @@
 
 <?php echo render('events/_form'); ?>
 <br />
-<p><?php echo Html::anchor('events', 'Back'); ?></p>
+<p><?php echo Html::anchor('events', 'Back', array('class'=>'btn')); ?></p>

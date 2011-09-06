@@ -62,7 +62,7 @@
 	<p>
 		<?php echo Form::label('Country', 'country'); ?>
 		<div class='input'>
-<?php echo Form::input('country', Input::post('country', isset($client) ? $client->country : '')); ?>
+<?php echo Form::select('country', Input::post('country', isset($client) ? $client->country : ''),$select['countries']); ?>
 </div>
 	</p>
 	<p>

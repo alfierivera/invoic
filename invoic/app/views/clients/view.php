@@ -44,5 +44,4 @@
 	<strong>Type:</strong>
 	<?php echo $client->type; ?></p>
 
-<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit'); ?> | 
-<?php echo Html::anchor('clients', 'Back'); ?>
+<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit', array('class'=>'primary btn')); ?>&nbsp;<?php echo Html::anchor('clients', 'Back', array('class'=>'btn')); ?>

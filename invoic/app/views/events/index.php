@@ -1,33 +1,29 @@
 <h2 class="first">Listing Events</h2>
 
-<table cellspacing="0">
-	<tr>
-		<th>Name</th>
-		<th>Identifier</th>
-		<th>Starts</th>
-		<th>Ends</th>
-		<th>Repeat</th>
-		<th>Reference</th>
-		<th>Reference ID</th>
-		<th></th>
-	</tr>
-
+<table class="zebra-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Starts</th>
+			<th>Ends</th>
+			<th>Repeat</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
 	<?php foreach ($events as $event): ?>	<tr>
 
 		<td><?php echo $event->name; ?></td>
-		<td><?php echo $event->identifier; ?></td>
-		<td><?php echo $event->starts; ?></td>
-		<td><?php echo $event->ends; ?></td>
+		<td><?php echo Date::factory($event->starts)->format("datepicker"); ?></td>
+		<td><?php echo Date::factory($event->ends)->format("datepicker"); ?></td>
 		<td><?php echo $event->repeat; ?></td>
-		<td><?php echo $event->reference; ?></td>
-		<td><?php echo $event->ref_id; ?></td>
 		<td>
-			<?php echo Html::anchor('events/view/'.$event->id, 'View'); ?> |
-			<?php echo Html::anchor('events/edit/'.$event->id, 'Edit'); ?> |
-			<?php echo Html::anchor('events/delete/'.$event->id, 'Delete', array('onclick' => "return confirm('Are you sure?')")); ?>		</td>
+			<?php echo Html::anchor('events/view/'.$event->id, 'View', array('class' => 'btn primary')); ?> |
+			<?php echo Html::anchor('events/edit/'.$event->id, 'Edit', array('class' => 'btn')); ?> |
+			<?php echo Html::anchor('events/delete/'.$event->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
 	</tr>
-	<?php endforeach; ?></table>
+	<?php endforeach; ?></tbody></table>
 
 <br />
 
-<?php echo Html::anchor('events/create', 'Add new Event'); ?>
+<?php echo Html::anchor('events/create', 'Add new Event', array('class' => 'btn large primary')); ?>

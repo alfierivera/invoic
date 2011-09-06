@@ -2,4 +2,4 @@
 
 <?php echo render('clients/_form'); ?>
 <br />
-<p><?php echo Html::anchor('clients', 'Back'); ?></p>
+<p><?php echo Html::anchor('clients', 'Back', array('class'=>'btn')); ?></p>

@@ -1,9 +1,28 @@
 <?php
 class Controller_Events extends Controller_Template {
+
+	public static $select = array(
+		'repeat' => array(
+			'1' => 'Yes',
+			'0' => 'No'
+		),
+		
+		'references' => array(
+			'client' => 'Clients',
+			'alerts' => 'Alerts'
+		)
+	);
 	
 	public function action_index()
 	{
 		$data['events'] = Model_Event::find('all');
+		foreach ($data['events'] as $event)
+		{
+			if (array_key_exists($event->repeat, static::$select['repeat']))
+			{
+				$event->repeat = static::$select['repeat'][$event->repeat];
+			}
+		}
 		$this->template->title = "Events";
 		$this->template->content = View::factory('events/index', $data);
 
@@ -12,7 +31,10 @@ class Controller_Events extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['event'] = Model_Event::find($id);
-		
+		if (array_key_exists($data['event']->repeat, static::$select['repeat']))
+		{
+			$data['event']->repeat = static::$select['repeat'][$data['event']->repeat];
+		}
 		$this->template->title = "Event";
 		$this->template->content = View::factory('events/view', $data);
 
@@ -25,8 +47,8 @@ class Controller_Events extends Controller_Template {
 			$event = Model_Event::factory(array(
 				'name' => Input::post('name'),
 				'identifier' => Input::post('identifier'),
-				'starts' => Input::post('starts'),
-				'ends' => Input::post('ends'),
+				'starts' => \Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp,
+				'ends' => \Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp,
 				'repeat' => Input::post('repeat'),
 				'reference' => Input::post('reference'),
 				'ref_id' => Input::post('ref_id'),
@@ -44,7 +66,7 @@ class Controller_Events extends Controller_Template {
 				Session::set_flash('notice', 'Could not save event.');
 			}
 		}
-
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Events";
 		$this->template->content = View::factory('events/create');
 
@@ -58,8 +80,8 @@ class Controller_Events extends Controller_Template {
 		{
 			$event->name = Input::post('name');
 			$event->identifier = Input::post('identifier');
-			$event->starts = Input::post('starts');
-			$event->ends = Input::post('ends');
+			$event->starts = Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp;
+			$event->ends = Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp;
 			$event->repeat = Input::post('repeat');
 			$event->reference = Input::post('reference');
 			$event->ref_id = Input::post('ref_id');
@@ -81,7 +103,7 @@ class Controller_Events extends Controller_Template {
 		{
 			$this->template->set_global('event', $event, false);
 		}
-		
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Events";
 		$this->template->content = View::factory('events/edit');
 

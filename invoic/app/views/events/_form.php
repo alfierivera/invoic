@@ -1,36 +1,44 @@
 <?php echo Form::open(); ?>
 	<p>
 		<?php echo Form::label('Name', 'name'); ?>
-<?php echo Form::textarea('name', Input::post('name', isset($event) ? $event->name : ''), array('cols' => 60, 'rows' => 8)); ?>
-	</p>
-	<p>
-		<?php echo Form::label('Identifier', 'identifier'); ?>
-<?php echo Form::input('identifier', Input::post('identifier', isset($event) ? $event->identifier : '')); ?>
+		<div class='input'>
+<?php echo Form::input('name', Input::post('name', isset($event) ? $event->name : '')); ?>
+</div>
 	</p>
 	<p>
 		<?php echo Form::label('Starts', 'starts'); ?>
-<?php echo Form::input('starts', Input::post('starts', isset($event) ? $event->starts : '')); ?>
+		<div class='input'>
+<?php echo Form::input('starts', Input::post('starts', isset($event) ? \Date::factory($event->starts)->format('datepicker') : '')); ?>
+</div>
 	</p>
 	<p>
 		<?php echo Form::label('Ends', 'ends'); ?>
-<?php echo Form::input('ends', Input::post('ends', isset($event) ? $event->ends : '')); ?>
+		<div class='input'>
+<?php echo Form::input('ends', Input::post('ends', isset($event) ? \Date::factory($event->ends)->format('datepicker') : '')); ?>
+</div>
 	</p>
 	<p>
 		<?php echo Form::label('Repeat', 'repeat'); ?>
-<?php echo Form::input('repeat', Input::post('repeat', isset($event) ? $event->repeat : '')); ?>
+		<div class='input'>
+<?php echo Form::select('repeat', Input::post('repeat', isset($event) ? $event->repeat : ''), $select['repeat']); ?>
+</div>
 	</p>
 	
 	<p>
 		<?php echo Form::label('Reference', 'reference'); ?>
-<?php echo Form::input('repeat', Input::post('reference', isset($event) ? $event->reference : '')); ?>
+		<div class='input'>
+<?php echo Form::select('repeat', Input::post('reference', isset($event) ? $event->reference : ''), $select['references']); ?>
+</div>
 	</p>
 	
 	<p>
 		<?php echo Form::label('Reference ID', 'ref_id'); ?>
+		<div class='input'>
 <?php echo Form::input('repeat', Input::post('ref_id', isset($event) ? $event->ref_id : '')); ?>
+</div>
 	</p>
 
 	<div class="actions">
-		<?php echo Form::submit(); ?>	</div>
+		<?php echo Form::submit(array('class' => 'btn primary large')); ?>	</div>
 
 <?php echo Form::close(); ?>

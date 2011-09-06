@@ -1,5 +1,6 @@
 <?php
 class Controller_Clients extends Controller_Template {
+		
 	public static $select = array(
 		'types' => array(
 			'1' => 'Individual',
@@ -17,8 +18,10 @@ class Controller_Clients extends Controller_Template {
 		'languages' => array(
 			'spanish' => 'Spanish',
 			'english' => 'English'
-		)
+		),
 	);
+	
+	
 	
 	public function action_index()
 	{
@@ -91,6 +94,11 @@ class Controller_Clients extends Controller_Template {
 				Session::set_flash('notice', 'Could not save client.');
 			}
 		}
+		$countries = Config::load('countries');
+		foreach ($countries as $country)
+		{
+			static::$select['countries'][$country] = $country;
+		}		
 		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Clients";
 		$this->template->content = View::factory('clients/create');
@@ -136,6 +144,11 @@ class Controller_Clients extends Controller_Template {
 		{
 			$this->template->set_global('client', $client, false);
 		}
+		$countries = Config::load('countries');
+		foreach ($countries as $country)
+		{
+			static::$select['countries'][$country] = $country;
+		}	
 		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Clients";
 		$this->template->content = View::factory('clients/edit');

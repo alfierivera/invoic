@@ -14,5 +14,4 @@
 	<strong>Type:</strong>
 	<?php echo $alert->type; ?></p>
 
-<?php echo Html::anchor('alerts/edit/'.$alert->id, 'Edit'); ?> | 
-<?php echo Html::anchor('alerts', 'Back'); ?>
+<?php echo Html::anchor('alerts/edit/'.$alert->id, 'Edit', array('class'=>'primary btn')); ?>&nbsp;<?php echo Html::anchor('alerts', 'Back', array('class'=>'btn')); ?>
