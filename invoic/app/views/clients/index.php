@@ -1,49 +1,33 @@
 <h2 class="first">Listing Clients</h2>
 
-<table cellspacing="0">
-	<tr>
-		<th>Name</th>
-		<th>Identifier</th>
-		<th>Phone</th>
-		<th>Fax</th>
-		<th>Website</th>
-		<th>Email</th>
-		<th>Street 1</th>
-		<th>Street 2</th>
-		<th>City</th>
-		<th>Province</th>
-		<th>Country</th>
-		<th>Notes</th>
-		<th>Priority</th>
-		<th>Language</th>
-		<th>Type</th>
-		<th></th>
-	</tr>
-
+<table class="zebra-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Phone</th>
+			<th>Website</th>
+			<th>Email</th>
+			<th>Priority</th>
+			<th>Type</th>
+			<th class="{sorter: false}">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
 	<?php foreach ($clients as $client): ?>	<tr>
-
+	
 		<td><?php echo $client->name; ?></td>
-		<td><?php echo $client->identifier; ?></td>
 		<td><?php echo $client->phone; ?></td>
-		<td><?php echo $client->fax; ?></td>
 		<td><?php echo $client->website; ?></td>
 		<td><?php echo $client->email; ?></td>
-		<td><?php echo $client->street_1; ?></td>
-		<td><?php echo $client->street_2; ?></td>
-		<td><?php echo $client->city; ?></td>
-		<td><?php echo $client->province; ?></td>
-		<td><?php echo $client->country; ?></td>
-		<td><?php echo $client->notes; ?></td>
 		<td><?php echo $client->priority; ?></td>
-		<td><?php echo $client->language; ?></td>
 		<td><?php echo $client->type; ?></td>
 		<td>
-			<?php echo Html::anchor('clients/view/'.$client->id, 'View'); ?> |
-			<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit'); ?> |
-			<?php echo Html::anchor('clients/delete/'.$client->id, 'Delete', array('onclick' => "return confirm('Are you sure?')")); ?>		</td>
+			<?php echo Html::anchor('clients/view/'.$client->id, 'View', array('class' => 'btn primary')); ?> |
+			<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit', array('class' => 'btn')); ?> |
+			<?php echo Html::anchor('clients/delete/'.$client->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
 	</tr>
-	<?php endforeach; ?></table>
+	<?php endforeach; ?></tbody></table>
 
 <br />
 
-<?php echo Html::anchor('clients/create', 'Add new Client'); ?>
+<?php echo Html::anchor('clients/create', 'Add new Client', array('class' => 'btn large primary')); ?>

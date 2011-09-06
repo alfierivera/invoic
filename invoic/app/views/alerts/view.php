@@ -5,11 +5,8 @@
 	<strong>Identifier:</strong>
 	<?php echo $alert->identifier; ?></p>
 <p>
-	<strong>Event id:</strong>
-	<?php echo $alert->event_id; ?></p>
-<p>
-	<strong>Init:</strong>
-	<?php echo $alert->init; ?></p>
+	<strong>Starts on:</strong>
+	<?php echo \Date::factory($alert->init)->format('datepicker'); ?></p>
 <p>
 	<strong>Enabled:</strong>
 	<?php echo $alert->enabled; ?></p>

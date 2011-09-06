@@ -1,9 +1,40 @@
 <?php
 class Controller_Clients extends Controller_Template {
+	public static $select = array(
+		'types' => array(
+			'1' => 'Individual',
+			'2' => 'Company',
+			'3' => 'Entity',
+			'4' => 'Other'
+		),
+		'priorities' => array(
+			'1' => 'VIP',
+			'2' => 'Big Client',
+			'3' => 'Descent Client',
+			'4' => 'Normal Client',
+			'5' => 'Ocational Client'
+		),
+		'languages' => array(
+			'spanish' => 'Spanish',
+			'english' => 'English'
+		)
+	);
 	
 	public function action_index()
 	{
 		$data['clients'] = Model_Client::find('all');
+		foreach ($data['clients'] as $client)
+		{
+			if (array_key_exists($client->type, static::$select['types']))
+			{
+				$client->type = static::$select['types'][$client->type];
+			}
+			
+			if (array_key_exists($client->priority, static::$select['priorities']))
+			{
+				$client->priority = static::$select['priorities'][$client->priority];
+			}
+		}
 		$this->template->title = "Clients";
 		$this->template->content = View::factory('clients/index', $data);
 
@@ -12,7 +43,15 @@ class Controller_Clients extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['client'] = Model_Client::find($id);
+		if (array_key_exists($data['client']->type, static::$select['types']))
+		{
+			$data['client']->type = static::$select['types'][$data['client']->type];
+		}
 		
+		if (array_key_exists($data['client']->priority, static::$select['priorities']))
+		{
+			$data['client']->priority = static::$select['priorities'][$data['client']->priority];
+		}
 		$this->template->title = "Client";
 		$this->template->content = View::factory('clients/view', $data);
 
@@ -52,7 +91,7 @@ class Controller_Clients extends Controller_Template {
 				Session::set_flash('notice', 'Could not save client.');
 			}
 		}
-
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Clients";
 		$this->template->content = View::factory('clients/create');
 
@@ -97,7 +136,7 @@ class Controller_Clients extends Controller_Template {
 		{
 			$this->template->set_global('client', $client, false);
 		}
-		
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Clients";
 		$this->template->content = View::factory('clients/edit');
 

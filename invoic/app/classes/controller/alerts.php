@@ -9,6 +9,11 @@ class Controller_Alerts extends Controller_Template {
 		'4' => 'Contact Required',
 	);
 	
+	public static $enabled = array(
+		'0' => 'No',
+		'1' => 'Yes',
+	);
+	
 	public function action_index()
 	{
 		$data['alerts'] = Model_Alert::find('all');
@@ -17,6 +22,11 @@ class Controller_Alerts extends Controller_Template {
 			if (array_key_exists($alert->type, static::$types))
 			{
 				$alert->type = static::$types[$alert->type];
+			}
+			
+			if (array_key_exists($alert->enabled, static::$enabled))
+			{
+				$alert->enabled = static::$enabled[$alert->enabled];
 			}
 		}
 		$this->template->title = "Alerts";
@@ -31,6 +41,11 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$data['alert']->type = static::$types[$data['alert']->type];
 		}
+		
+		if (array_key_exists($data['alert']->enabled, static::$enabled))
+		{
+			$data['alert']->enabled = static::$enabled[$data['alert']->enabled];
+		}
 		$this->template->title = "Alert";
 		$this->template->content = View::factory('alerts/view', $data);
 
@@ -44,7 +59,7 @@ class Controller_Alerts extends Controller_Template {
 				'name' => Input::post('name'),
 				'identifier' => Input::post('identifier'),
 				'event_id' => Input::post('event_id'),
-				'init' => Input::post('init'),
+				'init' => \Date::create_from_string(Input::post('init'), 'datepicker')->timestamp,
 				'enabled' => Input::post('enabled'),
 				'type' => Input::post('type'),
 			));
@@ -61,7 +76,7 @@ class Controller_Alerts extends Controller_Template {
 				Session::set_flash('notice', 'Could not save alert.');
 			}
 		}
-
+		$this->template->set_global('types', static::$types, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/create');
 
@@ -76,10 +91,9 @@ class Controller_Alerts extends Controller_Template {
 			$alert->name = Input::post('name');
 			$alert->identifier = Input::post('identifier');
 			$alert->event_id = Input::post('event_id');
-			$alert->init = Input::post('init');
+			$alert->init = Date::create_from_string(Input::post('init'),'datepicker')->timestamp;
 			$alert->enabled = Input::post('enabled');
 			$alert->type = Input::post('type');
-
 			if ($alert->save())
 			{
 				Session::set_flash('notice', 'Updated alert #' . $id);
@@ -97,7 +111,7 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$this->template->set_global('alert', $alert, false);
 		}
-		
+		$this->template->set_global('types', static::$types, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/edit');
 
