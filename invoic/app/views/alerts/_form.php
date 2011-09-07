@@ -14,20 +14,20 @@
 	<p>
 		<?php echo Form::label('Enabled', 'enabled'); ?>
 		<div class='input'>
-<?php echo Form::select('enabled', Input::post('enabled', isset($alert) ? $alert->enabled : ''), array('1'=>'Yes','0'=>'No')); ?>
+<?php echo Form::select('enabled', Input::post('enabled', isset($alert) ? $alert->enabled : ''), $select['enabled']); ?>
 </div>
 	</p>
 	<p>
 		<?php echo Form::label('Type', 'type'); ?>
 		<div class='input'>
-<?php echo Form::select('type', Input::post('type', isset($alert) ? $alert->type : ''), $types); ?>
+<?php echo Form::select('type', Input::post('type', isset($alert) ? $alert->type : ''), $select['types']); ?>
 </div>
 	</p>
 	
 	<p>
 		<?php echo Form::label('Event', 'event_id'); ?>
 		<div class='input'>
-<?php echo Form::select('event_id', Input::post('event_id', isset($alert) ? $alert->event_id : ''), $types['events']); ?>
+<?php echo Form::select('event_id', Input::post('event_id', isset($alert) ? $alert->event_id : ''), $select['events']); ?>
 </div>
 	</p>
 

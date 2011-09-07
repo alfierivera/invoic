@@ -47,8 +47,8 @@ class Controller_Events extends Controller_Template {
 			$event = Model_Event::factory(array(
 				'name' => Input::post('name'),
 				'identifier' => \Inflector::friendly_title(Input::post('name'), '-', true),
-				'starts' => \Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp,
-				'ends' => \Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp,
+				'starts' => \Date::create_from_string(Input::post('starts'), 'datepicker')->get_timestamp(),
+				'ends' => \Date::create_from_string(Input::post('ends'), 'datepicker')->get_timestamp(),
 				'repeat' => Input::post('repeat'),
 				'reference' => Input::post('reference'),
 				'ref_id' => Input::post('ref_id'),
@@ -75,13 +75,13 @@ class Controller_Events extends Controller_Template {
 	public function action_edit($id = null)
 	{
 		$event = Model_Event::find($id);
-
+		
 		if (Input::method() == 'POST')
 		{
 			$event->name = Input::post('name');
 			$event->identifier = \Inflector::friendly_title(Input::post('name'), '-', true);
-			$event->starts = Date::create_from_string(Input::post('starts'), 'datepicker')->timestamp;
-			$event->ends = Date::create_from_string(Input::post('ends'), 'datepicker')->timestamp;
+			$event->starts = \Date::create_from_string(Input::post('starts'), 'datepicker')->get_timestamp();
+			$event->ends = \Date::create_from_string(Input::post('ends'), 'datepicker')->get_timestamp();
 			$event->repeat = Input::post('repeat');
 			$event->reference = Input::post('reference');
 			$event->ref_id = Input::post('ref_id');

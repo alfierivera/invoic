@@ -1,17 +1,18 @@
 <?php
 class Controller_Alerts extends Controller_Template {
 
-	public static $types = array(
-		'0' => 'On Hold',
-		'1' => 'Reminder',
-		'2' => 'Notice',
-		'3' => 'Urgent',
-		'4' => 'Contact Required',
-	);
-	
-	public static $enabled = array(
-		'0' => 'No',
-		'1' => 'Yes',
+	public static $select = array(
+		'types' => array(
+			'0' => 'On Hold',
+			'1' => 'Reminder',
+			'2' => 'Notice',
+			'3' => 'Urgent',
+			'4' => 'Contact Required'
+		),
+		'enabled' => array(
+			'0' => 'No',
+			'1' => 'Yes',
+		)
 	);
 	
 	public function action_index()
@@ -19,14 +20,14 @@ class Controller_Alerts extends Controller_Template {
 		$data['alerts'] = Model_Alert::find('all');
 		foreach ($data['alerts'] as $alert)
 		{
-			if (array_key_exists($alert->type, static::$types))
+			if (array_key_exists($alert->type, static::$select['types']))
 			{
-				$alert->type = static::$types[$alert->type];
+				$alert->type = static::$select['types'][$alert->type];
 			}
 			
-			if (array_key_exists($alert->enabled, static::$enabled))
+			if (array_key_exists($alert->enabled, static::$select['enabled']))
 			{
-				$alert->enabled = static::$enabled[$alert->enabled];
+				$alert->enabled = static::$select['enabled'][$alert->enabled];
 			}
 		}
 		$this->template->title = "Alerts";
@@ -37,14 +38,14 @@ class Controller_Alerts extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['alert'] = Model_Alert::find($id);
-		if (array_key_exists($data['alert']->type, static::$types))
+		if (array_key_exists($data['alert']->type, static::$select['types']))
 		{
-			$data['alert']->type = static::$types[$data['alert']->type];
+			$data['alert']->type = static::$select['types'][$data['alert']->type];
 		}
 		
-		if (array_key_exists($data['alert']->enabled, static::$enabled))
+		if (array_key_exists($data['alert']->enabled, static::$select['enabled']))
 		{
-			$data['alert']->enabled = static::$enabled[$data['alert']->enabled];
+			$data['alert']->enabled = static::$select['enabled'][$data['alert']->enabled];
 		}
 		$this->template->title = "Alert";
 		$this->template->content = View::factory('alerts/view', $data);
@@ -59,7 +60,7 @@ class Controller_Alerts extends Controller_Template {
 				'name' => Input::post('name'),
 				'identifier' => \Inflector::friendly_title(Input::post('name'), '-', true),
 				'event_id' => Input::post('event_id'),
-				'init' => \Date::create_from_string(Input::post('init'), 'datepicker')->timestamp,
+				'init' => \Date::create_from_string(Input::post('init'), 'datepicker')->get_timestamp(),
 				'enabled' => Input::post('enabled'),
 				'type' => Input::post('type'),
 			));
@@ -81,8 +82,8 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$evids[$event->id] = $event->name;
 		}		
-		static::$types['events'] = $evids;		
-		$this->template->set_global('types', static::$types, false);
+		static::$select['events'] = $evids;		
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/create');
 
@@ -95,9 +96,8 @@ class Controller_Alerts extends Controller_Template {
 		if (Input::method() == 'POST')
 		{
 			$alert->name = Input::post('name');
-			//$alert->identifier = Input::post('identifier');
 			$alert->event_id = Input::post('event_id');
-			$alert->init = Date::create_from_string(Input::post('init'),'datepicker')->timestamp;
+			$alert->init = \Date::create_from_string(Input::post('init'), 'datepicker')->get_timestamp();
 			$alert->enabled = Input::post('enabled');
 			$alert->type = Input::post('type');
 			if ($alert->save())
@@ -122,8 +122,8 @@ class Controller_Alerts extends Controller_Template {
 		{
 			$evids[$event->id] = $event->name;
 		}		
-		static::$types['events'] = $evids;	
-		$this->template->set_global('types', static::$types, false);
+		static::$select['events'] = $evids;	
+		$this->template->set_global('select', static::$select, false);
 		$this->template->title = "Alerts";
 		$this->template->content = View::factory('alerts/edit');
 
