@@ -3,5 +3,4 @@
 <?php echo render('roles/_form'); ?>
 <br />
 <p>
-<?php echo Html::anchor('roles/view/'.$role->id, 'View'); ?> |
-<?php echo Html::anchor('roles', 'Back'); ?></p>
+<?php echo Html::anchor('roles/view/'.$role->id, 'View', array('class'=>'btn primary')); ?>&nbsp;<?php echo Html::anchor('roles', 'Back', array('class'=>'btn')); ?></p>

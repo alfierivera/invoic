@@ -1,9 +1,30 @@
 <?php
 class Controller_Roles extends Controller_Template {
+
+	public static $select = array();
+
+	public function before()
+	{
+		parent::before();
+		$groups = \Model_Group::find('all');
+		static::$select['groups'][0] = 'No Group/Default';
+		foreach ($groups as $group)
+		{
+			static::$select['groups'][$group->id] = $group->name;
+		}
+		$this->template->set_global('select', static::$select);
+	}
 	
 	public function action_index()
 	{
 		$data['roles'] = Model_Role::find('all');
+		foreach ($data['roles'] as $role)
+		{
+			if (array_key_exists($role->group_id, static::$select['groups']))
+			{
+				$role->group_id = static::$select['groups'][$role->group_id];
+			}
+		}
 		$this->template->title = "Roles";
 		$this->template->content = View::factory('roles/index', $data);
 
@@ -12,7 +33,10 @@ class Controller_Roles extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['role'] = Model_Role::find($id);
-		
+		if (array_key_exists($data['role']->group_id, static::$select['groups']))
+		{
+			$data['role']->group_id = static::$select['groups'][$data['role']->group_id];
+		}
 		$this->template->title = "Role";
 		$this->template->content = View::factory('roles/view', $data);
 

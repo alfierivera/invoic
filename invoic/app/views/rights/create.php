@@ -2,4 +2,4 @@
 
 <?php echo render('rights/_form'); ?>
 <br />
-<p><?php echo Html::anchor('rights', 'Back'); ?></p>
+<p><?php echo Html::anchor('rights', 'Back', array('class' => 'btn')); ?></p>

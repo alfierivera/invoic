@@ -14,5 +14,4 @@
 	<strong>Delete:</strong>
 	<?php echo $right->delete; ?></p>
 
-<?php echo Html::anchor('rights/edit/'.$right->id, 'Edit'); ?> | 
-<?php echo Html::anchor('rights', 'Back'); ?>
+<?php echo Html::anchor('rights/edit/'.$right->id, 'Edit', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('rights', 'Back', array('class' => 'btn')); ?>

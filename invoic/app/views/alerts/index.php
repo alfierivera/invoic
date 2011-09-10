@@ -18,7 +18,7 @@
 		<td><?php echo $alert->enabled; ?></td>
 		<td><?php echo $alert->type; ?></td>
 		<td>
-			<?php echo Html::anchor('alerts/view/'.$alert->id, 'View', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('alerts/edit/'.$alert->id, 'Edit', array('class' => 'btn')); ?>&nbsp;<?php echo Html::anchor('alerts/delete/'.$alert->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
+			<?php echo Html::anchor('alerts/view/'.$alert->id, 'View', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('alerts/edit/'.$alert->id, 'Edit', array('class' => 'btn info')); ?>&nbsp;<?php echo Html::anchor('alerts/delete/'.$alert->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
 	</tr>
 	<?php endforeach; ?></tbody></table>
 

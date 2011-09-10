@@ -1,9 +1,38 @@
 <?php
 class Controller_Groups extends Controller_Template {
+
+	public static $select = array();
+
+	public static $related = array();
+
+	public function before()
+	{
+		parent::before();
+		$groups = \Model_Group::find('all');
+		$roles = \Model_Role::find('all');
+		static::$select['groups']['0'] = 'No Parent';
+		foreach ($groups as $group)
+		{
+			static::$select['groups'][$group->id] = $group->name; 
+		}
+		
+		foreach ($roles as $role)
+		{
+			static::$select['roles'][$role->id] = $role->name; 
+		}
+		$this->template->set_global('select', static::$select, false);
+	}
 	
 	public function action_index()
 	{
 		$data['groups'] = Model_Group::find('all');
+		foreach ($data['groups'] as $group)
+		{
+			if (array_key_exists($group->parent_id, static::$select['groups']))
+			{
+				$group->parent_id = static::$select['groups'][$group->parent_id];
+			}
+		}
 		$this->template->title = "Groups";
 		$this->template->content = View::factory('groups/index', $data);
 
@@ -12,7 +41,10 @@ class Controller_Groups extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['group'] = Model_Group::find($id);
-		
+		if (array_key_exists($data['group']->parent_id, static::$select['groups']))
+		{
+			$data['group']->parent_id = static::$select['groups'][$data['group']->parent_id];
+		}
 		$this->template->title = "Group";
 		$this->template->content = View::factory('groups/view', $data);
 

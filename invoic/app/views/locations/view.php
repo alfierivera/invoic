@@ -5,5 +5,4 @@
 	<strong>Uri:</strong>
 	<?php echo $location->uri; ?></p>
 
-<?php echo Html::anchor('locations/edit/'.$location->id, 'Edit'); ?> | 
-<?php echo Html::anchor('locations', 'Back'); ?>
+<?php echo Html::anchor('locations/edit/'.$location->id, 'Edit', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('locations', 'Back', array('class' => 'btn')); ?>

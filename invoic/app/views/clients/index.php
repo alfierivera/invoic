@@ -22,7 +22,7 @@
 		<td><?php echo $client->priority; ?></td>
 		<td><?php echo $client->type; ?></td>
 		<td>
-			<?php echo Html::anchor('clients/view/'.$client->id, 'View', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit', array('class' => 'btn')); ?>&nbsp;<?php echo Html::anchor('clients/delete/'.$client->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
+			<?php echo Html::anchor('clients/view/'.$client->id, 'View', array('class' => 'btn primary')); ?>&nbsp;<?php echo Html::anchor('clients/edit/'.$client->id, 'Edit', array('class' => 'btn info')); ?>&nbsp;<?php echo Html::anchor('clients/delete/'.$client->id, 'Delete', array('onclick' => "return confirm('Are you sure?')", 'class' => 'btn danger')); ?>		</td>
 	</tr>
 	<?php endforeach; ?></tbody></table>
 

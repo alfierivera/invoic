@@ -2,4 +2,4 @@
 
 <?php echo render('roles/_form'); ?>
 <br />
-<p><?php echo Html::anchor('roles', 'Back'); ?></p>
+<p><?php echo Html::anchor('roles', 'Back', array('class'=>'btn')); ?></p>

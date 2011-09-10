@@ -22,6 +22,8 @@
 			$("#form_starts").datetimepicker();
 			$("#form_ends").datetimepicker();
 			$("#form_country").chosen();
+			$("#form_parent_id").chosen();
+			$("#form_group_id").chosen();
 		}); 
 	</script>
 </head>
@@ -35,6 +37,10 @@
             <li <?php if (Uri::segment(1) == "clients" or Uri::segment(1) == false) { echo "class='active'"; } ?>><?php echo Html::anchor('clients','Clients'); ?></li>
             <li <?php if (Uri::segment(1) == "alerts") { echo "class='active'"; } ?>><?php echo Html::anchor('alerts','Alerts'); ?></li>
              <li <?php if (Uri::segment(1) == "events") { echo "class='active'"; } ?>><?php echo Html::anchor('events','Events'); ?></li>
+             <li <?php if (Uri::segment(1) == "groups") { echo "class='active'"; } ?>><?php echo Html::anchor('groups','Groups'); ?></li>
+             <li <?php if (Uri::segment(1) == "roles") { echo "class='active'"; } ?>><?php echo Html::anchor('roles','Roles'); ?></li>
+             <li <?php if (Uri::segment(1) == "locations") { echo "class='active'"; } ?>><?php echo Html::anchor('locations','Locations'); ?></li>
+             <li <?php if (Uri::segment(1) == "rights") { echo "class='active'"; } ?>><?php echo Html::anchor('rights','Rights'); ?></li>
           </ul> 
         </div> 
       </div><!-- /topbar-inner --> 

@@ -1,9 +1,37 @@
 <?php
 class Controller_Rights extends Controller_Template {
+
+	public static $select = array();
+	
+	public function before()
+	{
+		parent::before();
+		$locations = \Model_Location::find('all');
+		foreach ($locations as $location)
+		{
+			static::$select['locations'][$location->id] = $location->name;
+		}
+		static::$select['options'] = array(
+			'0' => 'No',
+			'1' => 'Yes',
+		);
+		$this->template->set_global('select', static::$select);
+	}
 	
 	public function action_index()
 	{
 		$data['rights'] = Model_Right::find('all');
+		foreach ($data['rights'] as $right)
+		{
+			if (array_key_exists($right->role_location_id, static::$select['locations']))
+			{
+				$right->role_location_id = static::$select['locations'][$right->role_location_id];
+			}
+			$right->create = static::$select['options'][$right->create];
+			$right->read = static::$select['options'][$right->read];
+			$right->update = static::$select['options'][$right->update];
+			$right->delete = static::$select['options'][$right->delete];
+		}
 		$this->template->title = "Rights";
 		$this->template->content = View::factory('rights/index', $data);
 
@@ -12,7 +40,14 @@ class Controller_Rights extends Controller_Template {
 	public function action_view($id = null)
 	{
 		$data['right'] = Model_Right::find($id);
-		
+		if (array_key_exists($data['right']->role_location_id, static::$select['locations']))
+		{
+			$data['right']->role_location_id = static::$select['locations'][$data['right']->role_location_id];
+		}
+		$data['right']->create = static::$select['options'][$data['right']->create];
+		$data['right']->read = static::$select['options'][$data['right']->read];
+		$data['right']->update = static::$select['options'][$data['right']->update];
+		$data['right']->delete = static::$select['options'][$data['right']->delete];
 		$this->template->title = "Right";
 		$this->template->content = View::factory('rights/view', $data);
 
